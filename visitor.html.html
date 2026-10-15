@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rate Class 7A — The Journey of Mobile</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --border: #e2e8f0;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --accent: #0284c7;
+      --accent-hover: #0369a1;
+      --gold: #f59e0b;
+      --gold-empty: #cbd5e1;
+      --shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      padding: 1.5rem 1rem 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .form-wrapper {
+      width: 100%;
+      max-width: 460px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem 1.75rem;
+      box-shadow: var(--shadow);
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 1.75rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #e0f2fe;
+      color: var(--accent);
+      padding: 0.35rem 0.8rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border-radius: 999px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.6rem;
+      line-height: 1.2;
+      color: var(--text-main);
+      margin-bottom: 0.35rem;
+    }
+
+    p.subtitle {
+      font-size: 0.925rem;
+      color: var(--text-muted);
+    }
+
+    /* STAR RATING COMPONENT */
+    .stars-group {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .stars-picker {
+      display: inline-flex;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .star-btn {
+      background: none;
+      border: none;
+      font-size: 2.6rem;
+      color: var(--gold);
+      cursor: pointer;
+      line-height: 1;
+      padding: 0 0.15rem;
+      transition: transform 0.12s ease;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    .star-btn.inactive {
+      color: var(--gold-empty);
+    }
+
+    .star-btn:active {
+      transform: scale(1.25);
+    }
+
+    /* FORM INPUTS */
+    .field {
+      margin-bottom: 1.25rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 0.4rem;
+    }
+
+    input, textarea {
+      width: 100%;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      font-family: inherit;
+      font-size: 0.95rem;
+      color: var(--text-main);
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input:focus, textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.12);
+      background: #ffffff;
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--accent);
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      padding: 1rem;
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.2);
+      transition: background 0.2s ease, transform 0.1s ease;
+    }
+
+    .btn-submit:hover {
+      background: var(--accent-hover);
+    }
+
+    .btn-submit:active {
+      transform: scale(0.99);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+
+    .success-alert {
+      display: none;
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      color: #065f46;
+      border-radius: 10px;
+      padding: 1.1rem;
+      text-align: center;
+      font-size: 0.925rem;
+      margin-bottom: 1.5rem;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-wrapper">
+    <div class="card">
+      <header>
+        <span class="badge">Class 7A Exhibition</span>
+        <h1>The Journey of Mobile</h1>
+        <p class="subtitle">Share your review with our exhibition computer!</p>
+      </header>
+
+      <div id="success-banner" class="success-alert">
+        🎉 <strong>Thank You!</strong> Your feedback has been sent directly to the Class 7A display screen.
+      </div>
+
+      <form id="feedback-form">
+        <div class="stars-group">
+          <label>Your Overall Rating</label>
+          <div class="stars-picker" id="star-box">
+            <button type="button" class="star-btn" data-val="1">★</button>
+            <button type="button" class="star-btn" data-val="2">★</button>
+            <button type="button" class="star-btn" data-val="3">★</button>
+            <button type="button" class="star-btn" data-val="4">★</button>
+            <button type="button" class="star-btn" data-val="5">★</button>
+          </div>
+          <input type="hidden" id="star-value" value="5">
+        </div>
+
+        <div class="field">
+          <label for="visitor-name">Your Full Name</label>
+          <input type="text" id="visitor-name" placeholder="e.g. Maya Sharma" required maxlength="50">
+        </div>
+
+        <div class="field">
+          <label for="visitor-comment">Your Review / Impression</label>
+          <textarea id="visitor-comment" placeholder="What did you think of our timeline or mobile models?" required maxlength="400"></textarea>
+        </div>
+
+        <button type="submit" id="submit-btn" class="btn-submit">Submit Review to Exhibition</button>
+      </form>
+    </div>
+
+    <footer>
+      Created, Developed and Hosted by Ayaan Patel
+    </footer>
+  </div>
+
+  <!-- FIREBASE REALTIME DATABASE MODULE SCRIPT -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+    import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
+
+    // Direct configuration using your Firebase project details
+    const firebaseConfig = {
+      projectId: "cvs-review-2f711",
+      databaseURL: "https://cvs-review-2f711-default-rtdb.asia-southeast1.firebasedatabase.app"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // Star Selection Logic
+    const starBtns = document.querySelectorAll('.star-btn');
+    const starValue = document.getElementById('star-value');
+
+    starBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const val = parseInt(btn.dataset.val, 10);
+        starValue.value = val;
+        starBtns.forEach(b => {
+          b.classList.toggle('inactive', parseInt(b.dataset.val, 10) > val);
+        });
+      });
+    });
+
+    // Form Submission Logic
+    const form = document.getElementById('feedback-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const successBanner = document.getElementById('success-banner');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending to display...';
+
+      const name = document.getElementById('visitor-name').value.trim();
+      const comment = document.getElementById('visitor-comment').value.trim();
+      const rating = parseInt(starValue.value, 10);
+
+      try {
+        const reviewsRef = ref(db, 'reviews');
+        const newReviewRef = push(reviewsRef);
+
+        await set(newReviewRef, {
+          name: name,
+          comment: comment,
+          rating: rating,
+          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          timestamp: Date.now()
+        });
+
+        // Reset Form & Show Success Banner
+        form.reset();
+        starValue.value = "5";
+        starBtns.forEach(b => b.classList.remove('inactive'));
+        successBanner.style.display = 'block';
+
+        setTimeout(() => {
+          successBanner.style.display = 'none';
+        }, 5000);
+      } catch (err) {
+        alert("Error sending review: " + err.message);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit Review to Exhibition';
+      }
+    });
+  </script>
+</body>
+</html>
